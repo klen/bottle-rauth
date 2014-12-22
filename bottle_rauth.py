@@ -2,7 +2,7 @@ import rauth
 from bottle import request, redirect
 from copy import copy
 
-__version__ = "0.0.0"
+__version__ = "0.0.1"
 __project__ = "bottle-rauth"
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "MIT"
