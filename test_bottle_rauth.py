@@ -9,8 +9,8 @@ def test_bottle_rauth():
     app = bottle.Bottle()
     app.install(RAuthPlugin(github={
         'type': 'oauth2',
-        'client_id': 'e3e297bb9f506cbea557',
-        'client_secret': 'd113380beb8f1ed8a77b688e2b81b76c9be00d09',
+        'client_id': 'e8f9ebe239374201c0fc',
+        'client_secret': 'b541a98555a0e01a85baef38dd2859d7335eba68',
         'authorize_url': 'https://github.com/login/oauth/authorize',
         'access_token_url': 'https://github.com/login/oauth/access_token',
         'base_url': 'https://api.github.com/',

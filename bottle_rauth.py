@@ -19,20 +19,24 @@ class RAuthPlugin(object):
         self.options = options
 
     def setup(self, app):
-        self.options.update(app.config.get('RAUTH', {}))
+        app.config.setdefault('RAUTH', self.options)
+        self.options = app.config['RAUTH']
 
     def apply(self, callback, route):
         def wrapper(*args, **kwargs):
             if self.name in route.get_callback_args():
                 provider = route.config['provider']
                 config = copy(self.options[provider])
+                params = config.pop('params', {})
+                params['redirect_uri'] = request.url
+
                 service = rauth.OAuth1Service
                 if config.pop('type', None) == 'oauth2':
                     service = rauth.OAuth2Service
-
                 service = service(**config)
+
                 if 'code' not in request.params:
-                    redirect(service.get_authorize_url(redirect_uri=request.url))
+                    redirect(service.get_authorize_url(**params))
 
                 kwargs[self.name] = service.get_auth_session(data={
                     'code': request.params.get('code'),
